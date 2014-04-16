@@ -8,17 +8,42 @@ describe 'the restaurants index page' do
 		end
 
 		describe 'adding a restaurant' do
-			it 'should be listed on the index' do
-				visit '/restaurants'
-				click_link 'Add a restaurant'
-				fill_in 'Name', with: 'McDonalds'
-				fill_in 'Category', with: 'Fast food'
-				fill_in 'Location', with: 'Everywhere'
-				click_button 'Create Restaurant'
-				# we expect to be redirected back to restaurants page afer button is clicked.
-				expect(current_path).to eq '/restaurants'
-				expect(page).to have_content "McDonalds"
+
+			context 'logged out' do
+				it 'takes me to the sign in page' do
+					visit '/restaurants'
+					click_link 'Add a restaurant'
+					expect(current_path).to eq '/users/sign_in'
+					expect(page).to have_content 'sign in'
+				end
 			end
+
+			context 'logged in' do
+
+				before do
+					login_as_test_user
+				end
+				
+				it 'should be listed on the index' do
+					visit '/restaurants'
+					click_link 'Add a restaurant'
+					fill_in 'Name', with: 'McDonalds'
+					fill_in 'Category', with: 'Fast food'
+					fill_in 'Location', with: 'Everywhere'
+					click_button 'Create Restaurant'
+					# we expect to be redirected back to restaurants page afer button is clicked.
+					expect(current_path).to eq '/restaurants'
+					expect(page).to have_content "McDonalds"
+				end
+
+				it 'should display errors if bad data is given' do
+					visit '/restaurants'
+					click_link 'Add a restaurant'
+					click_button 'Create Restaurant'
+					expect(page).to have_content 'error'
+				end
+			end
+
 		end
 
 	end

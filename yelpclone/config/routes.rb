@@ -1,15 +1,19 @@
 Yelpclone::Application.routes.draw do
 
+  devise_for :users
   # get '/restaurants' => 'restaurants#index'
                         #left of hash: name of controller
                         #right of hash: name of action
 
-
+  root 'restaurants#index'                   
   resources :restaurants do
   #this will generate a bunch of RESTful Urls. 
     resources :reviews
     #added reviews urls inside it.
   end
+
+      
+
 
 
   # The priority is based upon order of creation: first created -> highest priority.

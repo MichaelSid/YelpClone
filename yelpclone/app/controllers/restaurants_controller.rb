@@ -1,5 +1,7 @@
 class RestaurantsController < ApplicationController
 
+	before_action :authenticate_user!, only: [:new, :create]
+	
 	def index
 		@restaurants = Restaurant.all
 	end
@@ -8,10 +10,23 @@ class RestaurantsController < ApplicationController
 		@restaurant = Restaurant.new
 	end
 
+
+
 	def create
-		Restaurant.create restaurant_params
-		redirect_to '/restaurants'
+		@restaurant = Restaurant.new(restaurant_params)
+		if @restaurant.save
+			redirect_to '/restaurants'
+		else
+			render 'new'
+			# different to 'redirect_to' because does not run 'new' action on line 7.
+			# So only the view is displayed for 'new'. User does not lose all his inputs.
+		end
 	end
+
+	def show
+    @restaurant = Restaurant.find params[:id]
+    @reviews = @restaurant.reviews
+  end
 
 	def edit
 		@restaurant = Restaurant.find params[:id]

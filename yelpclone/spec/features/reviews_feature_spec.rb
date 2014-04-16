@@ -13,7 +13,7 @@ describe 'writing reviews' do
 		select '2', from: 'Rating'
 		click_button 'Create Review'
 
-		expect(page).to have_css '.average_review', text: '2'
+		expect(page).to have_css '.average_review', text: '★★☆☆☆'
 	end
 
 end
