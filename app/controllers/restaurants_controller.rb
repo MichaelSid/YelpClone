@@ -17,6 +17,7 @@ class RestaurantsController < ApplicationController
 		if @restaurant.save
 			redirect_to '/restaurants'
 		else
+			
 			render 'new'
 			# different to 'redirect_to' because does not run 'new' action on line 7.
 			# So only the view is displayed for 'new'. User does not lose all his inputs.

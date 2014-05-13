@@ -8,9 +8,6 @@
 </head>
 <body>
 
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
-
 <nav class="navbar navbar-default" role="navigation">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -39,8 +36,16 @@
   </div><!-- /.container-fluid -->
 </nav>
 
-
 <div class='container'>
+
+	<% if notice %>
+		<p class="notice"><%= notice %></p>
+	<% end %>
+
+	<% if alert %>
+		<p class="alert"><%= alert %></p>
+	<% end %>
+
 	<%= yield %>
 </div>
 

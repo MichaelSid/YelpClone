@@ -12,7 +12,8 @@ Yelpclone::Application.routes.draw do
     #added reviews urls inside it.
   end
 
-      
+  match '/signup',  to: 'users#new', via: 'get'
+  get '/signup' => 'users#new'
 
 
 
